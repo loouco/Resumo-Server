@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia de Estudo — Servidor Local de Arquivos | IPIKK</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0f0f;
+    --paper: #f5f0e8;
+    --cream: #ede8dc;
+    --accent: #c0392b;
+    --accent2: #1a3a5c;
+    --gold: #b8860b;
+    --muted: #6b6560;
+    --border: #c9c0b0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--accent2);
+    color: #fff;
+    padding: 3.5rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 18px,
+      rgba(255,255,255,0.03) 18px,
+      rgba(255,255,255,0.03) 19px
+    );
+  }
+  .header-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #a8c4e0;
+    border: 1px solid rgba(168,196,224,0.4);
+    padding: 0.25rem 0.9rem;
+    border-radius: 2px;
+    margin-bottom: 1.2rem;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #fff;
+    max-width: 720px;
+    margin: 0 auto 0.6rem;
+  }
+  header h1 span { color: #f0c040; }
+  header p {
+    font-style: italic;
+    color: #a8c4e0;
+    font-size: 0.95rem;
+  }
+
+  /* ── NAV TABS ── */
+  .tab-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: var(--cream);
+    border-bottom: 2px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .tab-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.5rem;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    position: relative;
+    top: 2px;
+  }
+  .tab-btn:hover { color: var(--accent2); }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    background: var(--paper);
+    font-weight: 600;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── SECTION HEADERS ── */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent2);
+    margin: 2.5rem 0 1.2rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .section-title .num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    background: rgba(192,57,43,0.1);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1rem;
+    box-shadow: 2px 3px 0 var(--border);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 4px 5px 0 var(--border); transform: translateY(-1px); }
+
+  .card-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--accent2);
+    margin-bottom: 0.5rem;
+  }
+  .card p, .card li {
+    color: #3a3530;
+    font-size: 0.93rem;
+    line-height: 1.65;
+  }
+  .card ul { padding-left: 1.3rem; }
+  .card li { margin-bottom: 0.2rem; }
+
+  /* HIGHLIGHT CARD */
+  .card-highlight {
+    background: var(--accent2);
+    color: #fff;
+    border-color: var(--accent2);
+    box-shadow: 4px 5px 0 rgba(26,58,92,0.25);
+  }
+  .card-highlight .card-label { color: #a8c4e0; }
+  .card-highlight h3 { color: #f0c040; }
+  .card-highlight p, .card-highlight li { color: #d0e0f0; }
+
+  /* PROBLEM/SOLUTION GRID */
+  .ps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 600px) { .ps-grid { grid-template-columns: 1fr; } }
+
+  .ps-card {
+    border-radius: 4px;
+    padding: 1.2rem 1.4rem;
+    border: 1px solid;
+  }
+  .ps-card.problem {
+    background: #fff5f5;
+    border-color: #e8bbbb;
+  }
+  .ps-card.solution {
+    background: #f0f8f0;
+    border-color: #a8d0a8;
+  }
+  .ps-card h4 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+  }
+  .ps-card.problem h4 { color: var(--accent); }
+  .ps-card.solution h4 { color: #2e7d32; }
+  .ps-card ul { padding-left: 1.1rem; }
+  .ps-card li { font-size: 0.88rem; color: #333; margin-bottom: 0.25rem; }
+
+  /* TECH PILLS */
+  .tech-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0.8rem 0 1.2rem;
+  }
+  .tech-pill {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 0.3rem 0.75rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent2);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .tech-pill .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 0.5rem 0 1.5rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0.3rem;
+    bottom: 0.3rem;
+    width: 2px;
+    background: var(--border);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -1.6rem;
+    top: 0.4rem;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--paper);
+  }
+  .tl-item strong {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 0.1rem;
+  }
+  .tl-item p { font-size: 0.9rem; color: #333; }
+
+  /* ── QUIZ SECTION ── */
+  .quiz-intro {
+    background: var(--accent2);
+    color: #fff;
+    border-radius: 4px;
+    padding: 1.5rem 1.8rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+  .quiz-intro .icon { font-size: 2.5rem; }
+  .quiz-intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: #f0c040;
+    margin-bottom: 0.3rem;
+  }
+  .quiz-intro p { font-size: 0.88rem; color: #a8c4e0; }
+
+  .quiz-category {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 2.5rem 0 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .quiz-category::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .q-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.3rem 1.5rem;
+    margin-bottom: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 2px 3px 0 var(--border);
+  }
+  .q-card:hover { box-shadow: 4px 5px 0 var(--border); transform: translateY(-1px); }
+  .q-card.open { border-color: var(--accent2); box-shadow: 4px 5px 0 rgba(26,58,92,0.2); }
+
+  .q-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+  }
+  .q-number {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: rgba(192,57,43,0.08);
+    border: 1px solid rgba(192,57,43,0.2);
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+    white-space: nowrap;
+    margin-top: 0.1rem;
+  }
+  .q-text {
+    font-size: 0.93rem;
+    color: var(--ink);
+    font-weight: 400;
+    flex: 1;
+    line-height: 1.55;
+  }
+  .q-toggle {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-left: auto;
+    white-space: nowrap;
+    margin-top: 0.15rem;
+    transition: transform 0.2s;
+  }
+  .q-card.open .q-toggle { transform: rotate(180deg); color: var(--accent2); }
+
+  .q-answer {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 0.9rem;
+    border-top: 1px dashed var(--border);
+  }
+  .q-card.open .q-answer { display: block; }
+  .answer-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #2e7d32;
+    margin-bottom: 0.35rem;
+    display: block;
+  }
+  .q-answer p {
+    font-size: 0.9rem;
+    color: #333;
+    line-height: 1.6;
+  }
+  .q-answer ul {
+    padding-left: 1.2rem;
+    margin-top: 0.3rem;
+  }
+  .q-answer li {
+    font-size: 0.88rem;
+    color: #444;
+    margin-bottom: 0.2rem;
+    line-height: 1.55;
+  }
+  .q-answer .note {
+    margin-top: 0.6rem;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.82rem;
+    border-left: 3px solid var(--border);
+    padding-left: 0.7rem;
+  }
+
+  /* STATS ROW */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem;
+    margin: 1.5rem 0 2rem;
+  }
+  @media (max-width: 600px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+  .stat-box {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 2px 3px 0 var(--border);
+  }
+  .stat-box .val {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--accent);
+    display: block;
+  }
+  .stat-box .lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    display: block;
+    margin-top: 0.1rem;
+  }
+
+  /* CONCLUSION BOX */
+  .conclusion-box {
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    padding: 1.8rem 2rem;
+    margin: 2rem 0;
+    position: relative;
+  }
+  .conclusion-box::before {
+    content: '"';
+    position: absolute;
+    top: -1rem;
+    left: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    color: var(--accent);
+    line-height: 1;
+    background: var(--paper);
+    padding: 0 0.3rem;
+  }
+  .conclusion-box p {
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--accent2);
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    letter-spacing: 0.08em;
+  }
+
+  /* OPEN ALL BTN */
+  .ctrl-bar {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .ctrl-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--accent2);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.05em;
+  }
+  .ctrl-btn:hover { background: var(--accent2); color: #fff; border-color: var(--accent2); }
+
+  /* animation */
+  .tab-panel.active .card,
+  .tab-panel.active .q-card,
+  .tab-panel.active .stat-box {
+    animation: fadeUp 0.35s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .tab-panel.active .card:nth-child(2) { animation-delay: 0.05s; }
+  .tab-panel.active .card:nth-child(3) { animation-delay: 0.1s; }
+  .tab-panel.active .card:nth-child(4) { animation-delay: 0.15s; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-tag">TCC — GSI13AT · IPIKK "Nova Vida"</div>
+  <h1>Implementação de um<br><span>Servidor Local de Arquivos</span></h1>
+  <p>Guia de estudo completo — Resumo & Questionário · 2025/2026</p>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('resumo', this)">📖 Resumo</button>
+  <button class="tab-btn" onclick="switchTab('quiz', this)">🧠 Questionário</button>
+  <button class="tab-btn" onclick="switchTab('defesa', this)">🎤 Dicas de Defesa</button>
+</nav>
+
+<main>
+
+<!-- ════════════════ RESUMO ════════════════ -->
+<div id="tab-resumo" class="tab-panel active">
+
+  <div class="stats-row">
+    <div class="stat-box"><span class="val">9</span><span class="lbl">Autores</span></div>
+    <div class="stat-box"><span class="val">7</span><span class="lbl">Coordenações</span></div>
+    <div class="stat-box"><span class="val">35</span><span class="lbl">Utilizadores</span></div>
+    <div class="stat-box"><span class="val">7/7</span><span class="lbl">Testes Aprovados</span></div>
+  </div>
+
+  <!-- 1. O que é -->
+  <h2 class="section-title"><span class="num">01</span> O que é este trabalho?</h2>
+  <div class="card card-highlight">
+    <span class="card-label">Objetivo central</span>
+    <h3>Servidor Local de Arquivos para o IPIKK</h3>
+    <p>O trabalho consiste na criação e configuração de um servidor de arquivos dentro do Instituto Politécnico Industrial do Kilamba Kiaxi (IPIKK), transformando um computador comum em um repositório central onde todos os documentos administrativos das coordenações ficam guardados de forma organizada, segura e acessível apenas a utilizadores autorizados.</p>
+  </div>
+
+  <!-- 2. Problema e Solução -->
+  <h2 class="section-title"><span class="num">02</span> Problema e Solução</h2>
+  <div class="ps-grid">
+    <div class="ps-card problem">
+      <h4>⚠️ Antes — O Problema</h4>
+      <ul>
+        <li>Arquivos guardados em pen drives e discos externos</li>
+        <li>Partilha informal via WhatsApp e e-mail</li>
+        <li>Risco elevado de perda de dados</li>
+        <li>Sem controlo de quem acede aos documentos</li>
+        <li>Duplicação e desorganização de ficheiros</li>
+        <li>Sem cópias de segurança (backup)</li>
+      </ul>
+    </div>
+    <div class="ps-card solution">
+      <h4>✅ Depois — A Solução</h4>
+      <ul>
+        <li>Repositório central único para todas as coordenações</li>
+        <li>Acesso controlado por utilizador e grupo</li>
+        <li>Permissões NTFS definidas por departamento</li>
+        <li>Partilha segura via protocolo SMB na rede local</li>
+        <li>Estrutura de pastas organizada por coordenação</li>
+        <li>Base para futuras cópias de segurança automáticas</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3. Tecnologias -->
+  <h2 class="section-title"><span class="num">03</span> Tecnologias Utilizadas</h2>
+  <div class="tech-grid">
+    <div class="tech-pill"><span class="dot"></span>Windows Server 2019 Standard</div>
+    <div class="tech-pill"><span class="dot"></span>Protocolo SMB (porta 445)</div>
+    <div class="tech-pill"><span class="dot"></span>Permissões NTFS</div>
+    <div class="tech-pill"><span class="dot"></span>Rede LAN (Cat 6)</div>
+    <div class="tech-pill"><span class="dot"></span>IP Fixo (estático)</div>
+    <div class="tech-pill"><span class="dot"></span>Intel Core i5 · 8 GB RAM · 500 GB HDD</div>
+    <div class="tech-pill"><span class="dot"></span>Active Directory (local)</div>
+    <div class="tech-pill"><span class="dot"></span>Server Manager</div>
+  </div>
+
+  <!-- 4. Conceitos-chave -->
+  <h2 class="section-title"><span class="num">04</span> Conceitos Fundamentais</h2>
+
+  <div class="card">
+    <span class="card-label">Modelo de Rede</span>
+    <h3>Arquitetura Cliente-Servidor</h3>
+    <p>O <strong>servidor</strong> centraliza os recursos e responde às solicitações. Os <strong>clientes</strong> (computadores das coordenações) fazem pedidos de acesso. Esta divisão garante organização, controlo e atendimento simultâneo de múltiplos utilizadores sem conflitos.</p>
+  </div>
+
+  <div class="card">
+    <span class="card-label">Sistema de Ficheiros</span>
+    <h3>Permissões NTFS — Os 4 Níveis</h3>
+    <ul>
+      <li><strong>Leitura</strong> — só visualizar o conteúdo da pasta</li>
+      <li><strong>Escrita</strong> — criar e modificar ficheiros</li>
+      <li><strong>Execução</strong> — executar programas armazenados</li>
+      <li><strong>Controlo Total</strong> — gerir permissões e configurações (apenas administrador)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="card-label">Protocolo de Partilha</span>
+    <h3>SMB vs FTP vs SFTP</h3>
+    <ul>
+      <li><strong>SMB</strong> — ideal para redes LAN Windows; integração nativa com o Windows Server; porta 445; escolhido neste projeto</li>
+      <li><strong>FTP</strong> — transferência entre sistemas; sem criptografia; portas TCP 20 e 21</li>
+      <li><strong>SFTP</strong> — versão segura do FTP; opera sobre SSH; porta TCP 22; recomendado para acesso externo</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="card-label">Rede Local</span>
+    <h3>Por que usar IP Fixo no servidor?</h3>
+    <p>Com IP dinâmico (DHCP), o endereço do servidor pode mudar após uma reinicialização, quebrando todas as ligações mapeadas nos computadores clientes. O IP fixo garante que as coordenações encontram sempre o servidor no mesmo endereço, assegurando continuidade do serviço.</p>
+  </div>
+
+  <!-- 5. Etapas de Implementação -->
+  <h2 class="section-title"><span class="num">05</span> Etapas da Implementação</h2>
+  <div class="timeline">
+    <div class="tl-item"><strong>Fase 1 — Análise</strong><p>Levantamento bibliográfico e diagnóstico da infraestrutura existente no IPIKK; aplicação de inquéritos a coordenadores, professores e técnicos de TI.</p></div>
+    <div class="tl-item"><strong>Fase 2 — Instalação</strong><p>Instalação do Windows Server 2019 Standard (Desktop Experience) via pen drive bootável; criação da partição primária no HDD de 500 GB.</p></div>
+    <div class="tl-item"><strong>Fase 3 — Configuração de Rede</strong><p>Atribuição do endereço IP estático; confirmação de conectividade via comando <em>ping</em> nos terminais clientes.</p></div>
+    <div class="tl-item"><strong>Fase 4 — Utilizadores e Grupos</strong><p>Criação de 7 grupos (DP, EIE, FC, GSI, INF, OCC, TM) com 5 utilizadores cada, totalizando 35 contas com senhas complexas.</p></div>
+    <div class="tl-item"><strong>Fase 5 — Pastas e Permissões</strong><p>Criação das pastas por coordenação; definição de permissões NTFS (Leitura e Escrita para cada grupo; Controlo Total para o administrador); pasta SETUP partilhada por todos.</p></div>
+    <div class="tl-item"><strong>Fase 6 — Testes</strong><p>7 testes realizados: conectividade, acesso às pastas, permissões de leitura/escrita, bloqueio de acesso não autorizado, acesso simultâneo e mapeamento de unidade de rede — todos aprovados.</p></div>
+  </div>
+
+  <!-- 6. Modelo de Acesso -->
+  <h2 class="section-title"><span class="num">06</span> Estrutura de Acesso às Pastas</h2>
+  <div class="card">
+    <span class="card-label">Modelo híbrido de permissões</span>
+    <h3>Dois Níveis de Acesso</h3>
+    <p><strong>Acesso Comum:</strong> todos os 7 grupos podem aceder à pasta <em>SETUP</em>, que funciona como repositório partilhado de ferramentas e recursos comuns a toda a instituição.</p>
+    <p style="margin-top:0.6rem"><strong>Acesso Restrito:</strong> cada grupo acede exclusivamente à sua própria pasta (ex.: Grupo GSI → Pasta GSI), garantindo confidencialidade dos dados de cada coordenação.</p>
+  </div>
+
+  <!-- 7. Resultados -->
+  <h2 class="section-title"><span class="num">07</span> Resultados e Conclusão</h2>
+  <div class="card">
+    <span class="card-label">Todos os testes aprovados</span>
+    <h3>Resultados Obtidos</h3>
+    <ul>
+      <li>Autenticação de utilizadores — <strong>Aprovado</strong></li>
+      <li>Permissões NTFS por grupo — <strong>Aprovado</strong></li>
+      <li>Bloqueio de acesso não autorizado — <strong>Aprovado</strong></li>
+      <li>Acesso simultâneo sem falhas — <strong>Aprovado</strong></li>
+      <li>Transferência de ficheiros (.docx, .xlsx, .pdf) — <strong>Aprovado</strong></li>
+      <li>Mapeamento de unidade de rede — <strong>Aprovado</strong></li>
+      <li>Conectividade ping ao servidor — <strong>Aprovado</strong></li>
+    </ul>
+  </div>
+
+  <div class="conclusion-box">
+    <p>A implementação do servidor de arquivos representa um avanço significativo na gestão da informação institucional do IPIKK, substituindo a prática desorganizada de armazenamento individual por um sistema centralizado, controlado e seguro — acessível apenas às coordenações autorizadas.</p>
+  </div>
+
+</div><!-- /tab-resumo -->
+
+
+<!-- ════════════════ QUIZ ════════════════ -->
+<div id="tab-quiz" class="tab-panel">
+
+  <div class="quiz-intro">
+    <div class="icon">🧠</div>
+    <div>
+      <h2>Questionário Completo — 30 Perguntas</h2>
+      <p>Clique em cada pergunta para revelar a resposta. Teste os seus conhecimentos antes da defesa.</p>
+    </div>
+  </div>
+
+  <div class="ctrl-bar">
+    <button class="ctrl-btn" onclick="toggleAll(true)">▼ Expandir tudo</button>
+    <button class="ctrl-btn" onclick="toggleAll(false)">▲ Recolher tudo</button>
+  </div>
+
+  <!-- PARTE 1 -->
+  <div class="quiz-category">Parte 1 — Conceitos Fundamentais</div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q01</span>
+      <span class="q-text">O que é um servidor e qual a sua função principal?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>Um servidor é um computador ou programa que fornece serviços, dados ou recursos a outros computadores — chamados clientes — através de uma rede. Permanece em estado de escuta contínua, respondendo às requisições recebidas. Distingue-se de um computador pessoal pelo seu funcionamento contínuo, alta disponibilidade e capacidade de atender múltiplos utilizadores em simultâneo.</p>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q02</span>
+      <span class="q-text">O que é o modelo cliente-servidor e como se diferencia do modelo P2P?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>No modelo cliente-servidor, as funções são claramente separadas: o <strong>cliente</strong> inicia a comunicação e solicita serviços; o <strong>servidor</strong> processa e responde. Já no modelo <strong>P2P (Peer-to-Peer)</strong>, todos os nós têm funções equivalentes, sem um nó central especializado. O modelo cliente-servidor oferece maior organização, controlo de acessos e centralização de recursos.</p>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q03</span>
+      <span class="q-text">Quais são os três componentes fundamentais de um servidor?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <ul>
+        <li><strong>Hardware</strong> — componentes físicos: CPU, RAM, disco de armazenamento e placa de rede</li>
+        <li><strong>Sistema Operativo de Servidor (SOS)</strong> — gere os recursos e disponibiliza serviços; ex.: Windows Server 2019</li>
+        <li><strong>Serviços de rede</strong> — definem as funcionalidades oferecidas aos clientes; ex.: partilha de ficheiros via SMB</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q04</span>
+      <span class="q-text">O que é uma LAN e por que é adequada para este projeto?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>LAN (Local Area Network) é uma rede de computadores interligados numa área geográfica limitada (escola, escritório, edifício). É adequada para este projeto porque todas as coordenações do IPIKK estão no mesmo complexo, permitindo alta taxa de transferência, baixa latência e maior controlo administrativo, sem depender da Internet pública.</p>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q05</span>
+      <span class="q-text">Pode-se usar um computador comum como servidor? Quais são as limitações?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>Sim. Computadores comuns (gabinetes adaptados) podem funcionar como servidores em ambientes de pequeno porte, como o IPIKK. Contudo, apresentam limitações: menor robustez, maior risco de sobreaquecimento, dificuldade de expansão e menor tolerância a falhas. Para mitigar estes riscos, recomenda-se UPS, backups periódicos, monitorização de hardware e manutenção preventiva.</p>
+    </div>
+  </div>
+
+  <!-- PARTE 2 -->
+  <div class="quiz-category">Parte 2 — Problema, Solução e Justificação</div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q06</span>
+      <span class="q-text">Qual era o problema principal de gestão de dados no IPIKK antes do projeto?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>As coordenações armazenavam ficheiros de forma descentralizada em computadores individuais, pen drives, discos externos e aplicações de mensagens (WhatsApp, e-mail), sem qualquer sistema de backup. Isto gerava: risco elevado de perda de dados, duplicação de ficheiros, ausência de controlo de acessos e dificuldade na partilha segura de documentos.</p>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q07</span>
+      <span class="q-text">Qual é a hipótese central do trabalho e foi confirmada?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>A hipótese central era que a implementação de um servidor de arquivos melhoraria a organização dos dados, reduziria a perda de informações e aumentaria a segurança através de políticas de permissões. Sim, foi confirmada: todos os 7 testes de funcionamento foram aprovados, demonstrando que a solução é viável e eficaz no contexto do IPIKK.</p>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q08</span>
+      <span class="q-text">Por que o projeto se limita a uma rede local (LAN) e não inclui soluções em nuvem?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>A delimitação do estudo é explícita: o projeto cobre apenas a implementação interna em rede local, não abrangendo serviços externos em nuvem ou sistemas de gestão académica. Esta escolha deve-se à necessidade de controlo interno dos dados, redução de custos operacionais e funcionamento independente da conectividade com a Internet — fatores críticos numa instituição de ensino como o IPIKK.</p>
+    </div>
+  </div>
+
+  <!-- PARTE 3 -->
+  <div class="quiz-category">Parte 3 — Tecnologias e Protocolos</div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q09</span>
+      <span class="q-text">Por que o Windows Server 2019 foi escolhido em vez do Linux?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>O Windows Server 2019 foi selecionado pela sua compatibilidade com o hardware existente, interface gráfica intuitiva (facilita a administração), integração nativa com o protocolo SMB e permissões NTFS, suporte a Active Directory, e familiaridade da equipa técnica do IPIKK com o ambiente Windows. Em contextos de baixo custo com hardware convencional, também se mostra tecnicamente viável.</p>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q10</span>
+      <span class="q-text">Explique o protocolo SMB: o que é, como funciona e por que foi escolhido?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>O <strong>SMB (Server Message Block)</strong> é um protocolo de partilha de ficheiros amplamente utilizado em redes Windows. Opera sobre TCP/IP, normalmente pela porta 445. Permite partilha direta de pastas e impressoras, integra-se ao sistema de autenticação do Windows Server, e oferece controlo granular de permissões, auditoria de acessos e mapeamento de unidades de rede. Foi escolhido por ser a solução mais adequada para o ambiente LAN interno do IPIKK.</p>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q11</span>
+      <span class="q-text">Qual a diferença entre FTP e SFTP? Quando se usaria cada um?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <ul>
+        <li><strong>FTP</strong> — transferência de ficheiros sem criptografia; portas TCP 20 e 21; adequado para redes internas protegidas, mas expõe credenciais em redes não seguras</li>
+        <li><strong>SFTP</strong> — opera sobre o protocolo SSH (porta TCP 22); garante criptografia, autenticação segura e proteção contra intercepção; indicado para acesso externo ou transferência de dados sensíveis</li>
+      </ul>
+      <p class="note">No IPIKK, o SMB foi preferido para partilha interna contínua; FTP/SFTP poderiam ser usados para backups remotos futuros.</p>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q12</span>
+      <span class="q-text">O que é o NTFS e quais permissões foram aplicadas no projeto?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p><strong>NTFS (New Technology File System)</strong> é o sistema de ficheiros do Windows que permite definir regras granulares de acesso. No projeto:</p>
+      <ul>
+        <li>Cada coordenação (grupo) recebeu <strong>Leitura e Escrita</strong> sobre a sua pasta</li>
+        <li>O administrador do sistema tem <strong>Controlo Total</strong></li>
+        <li>Todos os grupos têm acesso à pasta <strong>SETUP</strong> (recurso comum)</li>
+        <li>Grupos não têm acesso às pastas de outras coordenações</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q13</span>
+      <span class="q-text">Por que é essencial atribuir um endereço IP fixo ao servidor?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>Com IP dinâmico (DHCP), o endereço pode mudar após reinicializações ou renovação de concessão, causando falhas nas ligações mapeadas pelos clientes. O IP fixo garante que os computadores das coordenações encontram o servidor sempre no mesmo endereço, assegurando continuidade do serviço, facilidade de implementação de regras de firewall, monitorização e documentação da infraestrutura.</p>
+    </div>
+  </div>
+
+  <!-- PARTE 4 -->
+  <div class="quiz-category">Parte 4 — Implementação e Hardware</div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q14</span>
+      <span class="q-text">Descreva as especificações do hardware usado e justifique cada escolha.</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <ul>
+        <li><strong>Intel Core i5 (6.ª Geração)</strong> — processamento multitarefa suficiente para múltiplas sessões simultâneas em LAN</li>
+        <li><strong>8 GB RAM DDR4</strong> — supera o mínimo recomendado (2 GB) do Windows Server 2019; garante folga operacional</li>
+        <li><strong>500 GB HDD</strong> — capacidade adequada para o volume de dados académicos e administrativos previstos</li>
+        <li><strong>Cabos UTP Cat 6</strong> — suportam alta taxa de transferência em rede local</li>
+      </ul>
+      <p class="note">O hardware foi adquirido com contribuições individuais de 30.000 Kz por cada um dos 9 membros do grupo.</p>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q15</span>
+      <span class="q-text">Quantos grupos e utilizadores foram criados? Como foram organizados?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>Foram criados <strong>7 grupos</strong>, correspondentes às 7 coordenações do IPIKK:</p>
+      <ul>
+        <li>DP — Desenhador Projectista</li>
+        <li>EIE — Energias e Instalações Eléctricas</li>
+        <li>FC — Frio e Climatização</li>
+        <li>GSI — Gestão de Sistemas Informáticos</li>
+        <li>INF — Informática</li>
+        <li>OCC — Obras e Construção Civil</li>
+        <li>TM — Tecnologias de Móveis</li>
+      </ul>
+      <p>Cada grupo tem <strong>5 utilizadores</strong>, totalizando <strong>35 contas</strong>. Cada utilizador tem senha complexa e não pode alterá-la.</p>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q16</span>
+      <span class="q-text">Quais foram as etapas da instalação do Windows Server 2019?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <ul>
+        <li>Criação de pen drive bootável com a imagem ISO do sistema</li>
+        <li>Arranque do servidor via BIOS/UEFI pelo dispositivo USB</li>
+        <li>Escolha da edição <em>Desktop Experience</em> para interface gráfica completa</li>
+        <li>Instalação personalizada com formatação da partição primária (500 GB)</li>
+        <li>Definição de senha de administrador com critérios de complexidade</li>
+        <li>Verificação da instalação pelo Server Manager ao reiniciar</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PARTE 5 -->
+  <div class="quiz-category">Parte 5 — Segurança e Controlo de Acesso</div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q17</span>
+      <span class="q-text">O que é autenticação e como é gerida no Windows Server 2019?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>Autenticação é o processo de verificar a identidade do utilizador antes de conceder acesso ao sistema. No Windows Server 2019, é gerida através do <strong>Active Directory (AD)</strong>, que centraliza contas de utilizadores, grupos e permissões. Políticas de senhas complexas e renovação periódica aumentam significativamente a segurança e previnem acessos não autorizados.</p>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q18</span>
+      <span class="q-text">Quais são as múltiplas camadas de segurança recomendadas para um servidor de arquivos?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <ul>
+        <li><strong>Segurança física</strong> — proteger o hardware contra acesso físico não autorizado e falhas ambientais</li>
+        <li><strong>Segurança lógica</strong> — autenticação, criptografia e políticas de permissões NTFS</li>
+        <li><strong>Monitorização</strong> — registo de acessos e alterações para auditoria</li>
+        <li><strong>Backups periódicos</strong> — cópias externas ou em nuvem para recuperação em caso de falha</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q19</span>
+      <span class="q-text">O que é o modelo híbrido de acesso implementado no projeto?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>O modelo combina dois níveis: <strong>Acesso Comum</strong> — todos os 7 grupos acedem à pasta <em>SETUP</em> (repositório de recursos partilhados); e <strong>Acesso Restrito</strong> — cada grupo tem acesso exclusivo à sua própria pasta, sem conseguir ver as pastas dos outros grupos. Este modelo equilibra colaboração e confidencialidade.</p>
+    </div>
+  </div>
+
+  <!-- PARTE 6 -->
+  <div class="quiz-category">Parte 6 — Testes e Resultados</div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q20</span>
+      <span class="q-text">Liste os 7 testes realizados e os seus resultados.</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta — Todos Aprovados</span>
+      <ul>
+        <li>Conectividade (ping ao servidor) — resposta sem perdas</li>
+        <li>Acesso às pastas partilhadas via rede — acesso bem-sucedido</li>
+        <li>Verificação de permissões de leitura — leitura autorizada</li>
+        <li>Verificação de permissões de escrita — escrita autorizada</li>
+        <li>Bloqueio de acesso não autorizado — acesso negado corretamente</li>
+        <li>Acesso simultâneo por múltiplos clientes — sem falhas ou degradação</li>
+        <li>Mapeamento de unidade de rede — unidade mapeada com sucesso</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q21</span>
+      <span class="q-text">Que formatos de ficheiros foram transferidos nos testes e o que foi verificado?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>Foram transferidos ficheiros em três formatos: documentos Word (.docx), folhas de cálculo Excel (.xlsx) e ficheiros PDF (.pdf). Todos foram transferidos com sucesso, confirmando a <strong>integridade dos dados</strong> — ou seja, os ficheiros chegaram ao destino sem corrupção ou perda de informação.</p>
+    </div>
+  </div>
+
+  <!-- PARTE 7 -->
+  <div class="quiz-category">Parte 7 — Metodologia e Investigação</div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q22</span>
+      <span class="q-text">Que tipo de pesquisa foi adotada e porquê?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <ul>
+        <li><strong>Aplicada</strong> — visa resolver um problema concreto (ausência de servidor no IPIKK)</li>
+        <li><strong>Quali-quantitativa</strong> — descreve os processos técnicos (qualitativa) e analisa frequências dos inquéritos (quantitativa)</li>
+        <li><strong>Exploratório-descritiva</strong> — investiga a viabilidade da implementação e documenta sistematicamente os procedimentos</li>
+        <li><strong>Estudo de caso</strong> — investigação aprofundada de um caso particular no IPIKK</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q23</span>
+      <span class="q-text">Quantos inquéritos foram aplicados e a quem se destinavam?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <ul>
+        <li><strong>Inquérito 1</strong> — Coordenadores de GSI e Informática (2 participantes, 7 perguntas): avaliar riscos e impacto da ausência de servidor</li>
+        <li><strong>Inquérito 2</strong> — Professores (6 participantes, 11 perguntas): necessidades pedagógicas, gestão de dados e expectativas</li>
+        <li><strong>Inquérito 3</strong> — Professores de GSI/Informática responsáveis pela infraestrutura (3 participantes, 7 perguntas): riscos atuais, sustentabilidade e viabilidade técnica</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PARTE 8 -->
+  <div class="quiz-category">Parte 8 — Recomendações e Futuro</div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q24</span>
+      <span class="q-text">Quais são as principais recomendações para melhorar o sistema no futuro?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <ul>
+        <li><strong>RAID 1</strong> — adicionar segundo disco para espelhamento e redundância de dados</li>
+        <li><strong>Backups automáticos diários</strong> — usar Windows Server Backup para cópias em disco externo ou nuvem</li>
+        <li><strong>Active Directory Domain Services (AD DS)</strong> — migrar para controlador de domínio com políticas de grupo (GPO)</li>
+        <li><strong>Hardware dedicado</strong> — adquirir servidor com SSD/NAS, mais RAM e fonte redundante (UPS)</li>
+        <li><strong>Monitorização contínua</strong> — ativar alertas automáticos de desempenho e tentativas de acesso</li>
+        <li><strong>Expansão para DHCP e servidor de impressão</strong> — centralizar mais serviços de TIC</li>
+        <li><strong>Formação dos utilizadores</strong> — sessões de boas práticas para as coordenações</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q25</span>
+      <span class="q-text">O que é o RAID e qual modalidade foi recomendada? Por que é útil?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p><strong>RAID (Redundant Array of Independent Disks)</strong> é uma tecnologia que combina múltiplos discos para melhorar desempenho ou redundância. Foi recomendado o <strong>RAID 1 (espelhamento)</strong>: os dados são escritos simultaneamente em dois discos, de modo que se um falhar, o outro mantém a informação intacta, garantindo continuidade operacional sem perda de dados.</p>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q26</span>
+      <span class="q-text">O que é o Active Directory Domain Services (AD DS) e qual vantagem traz sobre a gestão local?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>O <strong>AD DS</strong> transforma o servidor num Controlador de Domínio, permitindo gestão centralizada e avançada de todos os utilizadores e computadores da rede. Vantagens: autenticação de domínio (utilizador pode entrar em qualquer computador da escola com as suas credenciais), políticas de grupo (GPO) para definir configurações automáticas, e gestão muito mais eficiente do que a criação de utilizadores locais usada atualmente.</p>
+    </div>
+  </div>
+
+  <!-- PARTE 9 — PERGUNTAS DESAFIO -->
+  <div class="quiz-category">Parte 9 — Perguntas de Aprofundamento</div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q27</span>
+      <span class="q-text">Qual é a diferença entre permissões de partilha e permissões NTFS? Qual prevalece?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>As <strong>permissões de partilha</strong> controlam o acesso à pasta quando acedida pela rede; as <strong>permissões NTFS</strong> controlam o acesso ao nível do sistema de ficheiros (local e remoto). Quando ambas estão configuradas, o acesso efetivo é determinado pela combinação mais restritiva das duas. No projeto, as permissões foram configuradas de forma coerente para que as NTFS fossem o controlo principal.</p>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q28</span>
+      <span class="q-text">O que é um UPS e por que é importante para a continuidade do servidor?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p><strong>UPS (Uninterruptible Power Supply)</strong> é um sistema de alimentação ininterrupta — uma bateria que entra em funcionamento automaticamente quando há corte ou instabilidade de energia elétrica. É crucial para servidores porque uma queda súbita de energia pode corromper dados em escrita, danificar o sistema de ficheiros ou provocar perda irreversível de informação.</p>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q29</span>
+      <span class="q-text">Como é feito o mapeamento de unidade de rede nos computadores clientes?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta</span>
+      <p>O mapeamento é feito através do caminho de rede <strong>\\IP_do_servidor</strong> (ex.: \\192.168.X.X). No Windows, acede-se via Explorador de Ficheiros → "Mapear unidade de rede", indicando o caminho da pasta partilhada. Após autenticação com as credenciais do utilizador, a pasta aparece como uma unidade de disco (ex.: Z:) no computador cliente, facilitando o acesso direto sem precisar de digitar o caminho completo.</p>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggleQ(this)">
+    <div class="q-header">
+      <span class="q-number">Q30</span>
+      <span class="q-text">Resuma o projeto em três frases para a defesa.</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <span class="answer-label">✔ Resposta — Síntese para Defesa</span>
+      <p><em>"Este trabalho implementou um servidor local de arquivos no IPIKK usando Windows Server 2019 em rede LAN, resolvendo o problema de armazenamento descentralizado e inseguro nas coordenações. Foram criados 7 grupos com 35 utilizadores, pastas partilhadas com permissões NTFS e um modelo híbrido de acesso que equilibra colaboração e confidencialidade. Todos os 7 testes de funcionamento foram aprovados, confirmando que a solução é viável, segura e representa um avanço significativo na gestão da informação institucional."</em></p>
+    </div>
+  </div>
+
+</div><!-- /tab-quiz -->
+
+
+<!-- ════════════════ DICAS DE DEFESA ════════════════ -->
+<div id="tab-defesa" class="tab-panel">
+
+  <h2 class="section-title"><span class="num">🎤</span> Como Preparar a Defesa</h2>
+
+  <div class="card card-highlight">
+    <span class="card-label">Frase de abertura recomendada</span>
+    <h3>"O nosso trabalho criou um sistema centralizado onde todos os documentos das coordenações do IPIKK ficam organizados, seguros e acessíveis apenas a utilizadores autorizados — através de um servidor local configurado com Windows Server 2019."</h3>
+  </div>
+
+  <div class="card">
+    <span class="card-label">Perguntas mais prováveis da banca</span>
+    <h3>Prepare respostas para estes temas</h3>
+    <ul>
+      <li>"Por que escolheram o Windows Server e não o Linux?" → compatibilidade, facilidade de gestão, familiaridade da equipa</li>
+      <li>"Como garantem a segurança dos dados?" → permissões NTFS por grupo, autenticação, IP fixo, política de senhas</li>
+      <li>"O que acontece se o disco falhar?" → limitação atual; recomendam RAID 1 como melhoria futura</li>
+      <li>"Por que usaram SMB e não FTP?" → SMB integra-se nativamente ao Windows Server; ideal para LAN interna contínua</li>
+      <li>"Qual a limitação principal do projeto?" → uso de hardware não dedicado (gabinete comum) com menos tolerância a falhas</li>
+      <li>"Que melhorias propõem?" → RAID 1, backups automáticos, AD DS, UPS, hardware dedicado, formação</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="card-label">Termos técnicos que devem dominar</span>
+    <h3>Glossário Rápido</h3>
+    <ul>
+      <li><strong>SMB</strong> — protocolo de partilha de ficheiros em rede Windows</li>
+      <li><strong>NTFS</strong> — sistema de ficheiros com controlo de permissões</li>
+      <li><strong>LAN</strong> — rede local dentro de um edifício/escola</li>
+      <li><strong>IP Fixo</strong> — endereço de rede permanente, não muda</li>
+      <li><strong>DHCP</strong> — atribuição automática e dinâmica de endereços IP</li>
+      <li><strong>Active Directory</strong> — sistema de gestão centralizada de utilizadores</li>
+      <li><strong>RAID 1</strong> — espelhamento de discos para redundância</li>
+      <li><strong>UPS</strong> — bateria de emergência para o servidor</li>
+      <li><strong>Backup</strong> — cópia de segurança dos dados</li>
+      <li><strong>GPO</strong> — políticas de grupo para configurações automáticas</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="card-label">Estrutura do trabalho</span>
+    <h3>Os 5 Capítulos</h3>
+    <ul>
+      <li><strong>Cap. I — Introdução:</strong> contextualização, problema, justificativa, objetivos, hipóteses, delimitação</li>
+      <li><strong>Cap. II — Fundamentação Teórica:</strong> conceitos de servidores, tipos, hardware, sistemas operativos, protocolos, LAN, segurança</li>
+      <li><strong>Cap. III — Metodologia:</strong> tipo de pesquisa, inquéritos, etapas e materiais utilizados</li>
+      <li><strong>Cap. IV — Implementação e Resultados:</strong> instalação, configuração, criação de utilizadores, testes, resultados</li>
+      <li><strong>Cap. V — Conclusão e Recomendações:</strong> avaliação dos objetivos, limitações, recomendações futuras</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="card-label">Números que devem memorizar</span>
+    <h3>Dados Quantitativos do Projeto</h3>
+    <ul>
+      <li><strong>9</strong> — membros do grupo (turma GSI13AT)</li>
+      <li><strong>7</strong> — coordenações/grupos criados</li>
+      <li><strong>35</strong> — utilizadores totais (5 por grupo)</li>
+      <li><strong>7/7</strong> — testes aprovados (100% de sucesso)</li>
+      <li><strong>30.000 Kz</strong> — contribuição por membro para o hardware</li>
+      <li><strong>3</strong> — inquéritos aplicados (11 + 7 + 7 perguntas)</li>
+      <li><strong>500 GB</strong> — capacidade do disco do servidor</li>
+      <li><strong>8 GB</strong> — memória RAM do servidor</li>
+      <li><strong>445</strong> — porta TCP usada pelo protocolo SMB</li>
+    </ul>
+  </div>
+
+</div><!-- /tab-defesa -->
+
+</main>
+
+<footer>
+  Instituto Politécnico Industrial do Kilamba Kiaxi · GSI13AT · 2025/2026<br>
+  Guia de Estudo — TCC: Implementação de Servidor Local de Arquivos
+</footer>
+
+<script>
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggleQ(card) {
+  card.classList.toggle('open');
+}
+
+function toggleAll(open) {
+  document.querySelectorAll('.q-card').forEach(c => {
+    if (open) c.classList.add('open');
+    else c.classList.remove('open');
+  });
+}
+</script>
+</body>
+</html>
