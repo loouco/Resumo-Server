@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guia de Estudo — Servidor Local de Arquivos | IPIKK</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style>
   :root {
     --ink: #0f0f0f;
@@ -301,7 +302,11 @@
     align-items: center;
     gap: 1.2rem;
   }
-  .quiz-intro .icon { font-size: 2.5rem; }
+   .quiz-intro .icon { font-size: 2.5rem; line-height: 1; }
+
+  .icon-inline {
+    margin-right: 0.4rem;
+  }
   .quiz-intro h2 {
     font-family: 'Playfair Display', serif;
     font-size: 1.2rem;
@@ -532,9 +537,9 @@
 </header>
 
 <nav class="tab-nav">
-  <button class="tab-btn active" onclick="switchTab('resumo', this)">📖 Resumo</button>
-  <button class="tab-btn" onclick="switchTab('quiz', this)">🧠 Questionário</button>
-  <button class="tab-btn" onclick="switchTab('defesa', this)">🎤 Dicas de Defesa</button>
+  <button class="tab-btn active" onclick="switchTab('resumo', this)"><i class="fa-solid fa-book-open icon-inline" aria-hidden="true"></i>Resumo</button>
+  <button class="tab-btn" onclick="switchTab('quiz', this)"><i class="fa-solid fa-brain icon-inline" aria-hidden="true"></i>Questionário</button>
+  <button class="tab-btn" onclick="switchTab('defesa', this)"><i class="fa-solid fa-microphone icon-inline" aria-hidden="true"></i>Dicas de Defesa</button>
 </nav>
 
 <main>
@@ -561,7 +566,7 @@
   <h2 class="section-title"><span class="num">02</span> Problema e Solução</h2>
   <div class="ps-grid">
     <div class="ps-card problem">
-      <h4>⚠️ Antes — O Problema</h4>
+       <h4><i class="fa-solid fa-triangle-exclamation icon-inline" aria-hidden="true"></i>Antes — O Problema</h4>
       <ul>
         <li>Arquivos guardados em pen drives e discos externos</li>
         <li>Partilha informal via WhatsApp e e-mail</li>
@@ -572,7 +577,7 @@
       </ul>
     </div>
     <div class="ps-card solution">
-      <h4>✅ Depois — A Solução</h4>
+      <h4><i class="fa-solid fa-circle-check icon-inline" aria-hidden="true"></i>Depois — A Solução</h4>
       <ul>
         <li>Repositório central único para todas as coordenações</li>
         <li>Acesso controlado por utilizador e grupo</li>
@@ -680,7 +685,7 @@
 <div id="tab-quiz" class="tab-panel">
 
   <div class="quiz-intro">
-    <div class="icon">🧠</div>
+    <div class="icon"><i class="fa-solid fa-brain" aria-hidden="true"></i></div>
     <div>
       <h2>Questionário Completo — 30 Perguntas</h2>
       <p>Clique em cada pergunta para revelar a resposta. Teste os seus conhecimentos antes da defesa.</p>
@@ -688,8 +693,8 @@
   </div>
 
   <div class="ctrl-bar">
-    <button class="ctrl-btn" onclick="toggleAll(true)">▼ Expandir tudo</button>
-    <button class="ctrl-btn" onclick="toggleAll(false)">▲ Recolher tudo</button>
+    <button class="ctrl-btn" onclick="toggleAll(true)"><i class="fa-solid fa-chevron-down icon-inline" aria-hidden="true"></i>Expandir tudo</button>
+    <button class="ctrl-btn" onclick="toggleAll(false)"><i class="fa-solid fa-chevron-up icon-inline" aria-hidden="true"></i>Recolher tudo</button>
   </div>
 
   <!-- PARTE 1 -->
@@ -699,10 +704,10 @@
     <div class="q-header">
       <span class="q-number">Q01</span>
       <span class="q-text">O que é um servidor e qual a sua função principal?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>Um servidor é um computador ou programa que fornece serviços, dados ou recursos a outros computadores — chamados clientes — através de uma rede. Permanece em estado de escuta contínua, respondendo às requisições recebidas. Distingue-se de um computador pessoal pelo seu funcionamento contínuo, alta disponibilidade e capacidade de atender múltiplos utilizadores em simultâneo.</p>
     </div>
   </div>
@@ -711,10 +716,10 @@
     <div class="q-header">
       <span class="q-number">Q02</span>
       <span class="q-text">O que é o modelo cliente-servidor e como se diferencia do modelo P2P?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>No modelo cliente-servidor, as funções são claramente separadas: o <strong>cliente</strong> inicia a comunicação e solicita serviços; o <strong>servidor</strong> processa e responde. Já no modelo <strong>P2P (Peer-to-Peer)</strong>, todos os nós têm funções equivalentes, sem um nó central especializado. O modelo cliente-servidor oferece maior organização, controlo de acessos e centralização de recursos.</p>
     </div>
   </div>
@@ -723,10 +728,10 @@
     <div class="q-header">
       <span class="q-number">Q03</span>
       <span class="q-text">Quais são os três componentes fundamentais de um servidor?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <ul>
         <li><strong>Hardware</strong> — componentes físicos: CPU, RAM, disco de armazenamento e placa de rede</li>
         <li><strong>Sistema Operativo de Servidor (SOS)</strong> — gere os recursos e disponibiliza serviços; ex.: Windows Server 2019</li>
@@ -739,10 +744,10 @@
     <div class="q-header">
       <span class="q-number">Q04</span>
       <span class="q-text">O que é uma LAN e por que é adequada para este projeto?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>LAN (Local Area Network) é uma rede de computadores interligados numa área geográfica limitada (escola, escritório, edifício). É adequada para este projeto porque todas as coordenações do IPIKK estão no mesmo complexo, permitindo alta taxa de transferência, baixa latência e maior controlo administrativo, sem depender da Internet pública.</p>
     </div>
   </div>
@@ -751,10 +756,10 @@
     <div class="q-header">
       <span class="q-number">Q05</span>
       <span class="q-text">Pode-se usar um computador comum como servidor? Quais são as limitações?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>Sim. Computadores comuns (gabinetes adaptados) podem funcionar como servidores em ambientes de pequeno porte, como o IPIKK. Contudo, apresentam limitações: menor robustez, maior risco de sobreaquecimento, dificuldade de expansão e menor tolerância a falhas. Para mitigar estes riscos, recomenda-se UPS, backups periódicos, monitorização de hardware e manutenção preventiva.</p>
     </div>
   </div>
@@ -766,10 +771,10 @@
     <div class="q-header">
       <span class="q-number">Q06</span>
       <span class="q-text">Qual era o problema principal de gestão de dados no IPIKK antes do projeto?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>As coordenações armazenavam ficheiros de forma descentralizada em computadores individuais, pen drives, discos externos e aplicações de mensagens (WhatsApp, e-mail), sem qualquer sistema de backup. Isto gerava: risco elevado de perda de dados, duplicação de ficheiros, ausência de controlo de acessos e dificuldade na partilha segura de documentos.</p>
     </div>
   </div>
@@ -778,10 +783,10 @@
     <div class="q-header">
       <span class="q-number">Q07</span>
       <span class="q-text">Qual é a hipótese central do trabalho e foi confirmada?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+     <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>A hipótese central era que a implementação de um servidor de arquivos melhoraria a organização dos dados, reduziria a perda de informações e aumentaria a segurança através de políticas de permissões. Sim, foi confirmada: todos os 7 testes de funcionamento foram aprovados, demonstrando que a solução é viável e eficaz no contexto do IPIKK.</p>
     </div>
   </div>
@@ -790,10 +795,10 @@
     <div class="q-header">
       <span class="q-number">Q08</span>
       <span class="q-text">Por que o projeto se limita a uma rede local (LAN) e não inclui soluções em nuvem?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>A delimitação do estudo é explícita: o projeto cobre apenas a implementação interna em rede local, não abrangendo serviços externos em nuvem ou sistemas de gestão académica. Esta escolha deve-se à necessidade de controlo interno dos dados, redução de custos operacionais e funcionamento independente da conectividade com a Internet — fatores críticos numa instituição de ensino como o IPIKK.</p>
     </div>
   </div>
@@ -805,10 +810,10 @@
     <div class="q-header">
       <span class="q-number">Q09</span>
       <span class="q-text">Por que o Windows Server 2019 foi escolhido em vez do Linux?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>O Windows Server 2019 foi selecionado pela sua compatibilidade com o hardware existente, interface gráfica intuitiva (facilita a administração), integração nativa com o protocolo SMB e permissões NTFS, suporte a Active Directory, e familiaridade da equipa técnica do IPIKK com o ambiente Windows. Em contextos de baixo custo com hardware convencional, também se mostra tecnicamente viável.</p>
     </div>
   </div>
@@ -817,10 +822,10 @@
     <div class="q-header">
       <span class="q-number">Q10</span>
       <span class="q-text">Explique o protocolo SMB: o que é, como funciona e por que foi escolhido?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>O <strong>SMB (Server Message Block)</strong> é um protocolo de partilha de ficheiros amplamente utilizado em redes Windows. Opera sobre TCP/IP, normalmente pela porta 445. Permite partilha direta de pastas e impressoras, integra-se ao sistema de autenticação do Windows Server, e oferece controlo granular de permissões, auditoria de acessos e mapeamento de unidades de rede. Foi escolhido por ser a solução mais adequada para o ambiente LAN interno do IPIKK.</p>
     </div>
   </div>
@@ -829,10 +834,10 @@
     <div class="q-header">
       <span class="q-number">Q11</span>
       <span class="q-text">Qual a diferença entre FTP e SFTP? Quando se usaria cada um?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <ul>
         <li><strong>FTP</strong> — transferência de ficheiros sem criptografia; portas TCP 20 e 21; adequado para redes internas protegidas, mas expõe credenciais em redes não seguras</li>
         <li><strong>SFTP</strong> — opera sobre o protocolo SSH (porta TCP 22); garante criptografia, autenticação segura e proteção contra intercepção; indicado para acesso externo ou transferência de dados sensíveis</li>
@@ -845,10 +850,10 @@
     <div class="q-header">
       <span class="q-number">Q12</span>
       <span class="q-text">O que é o NTFS e quais permissões foram aplicadas no projeto?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p><strong>NTFS (New Technology File System)</strong> é o sistema de ficheiros do Windows que permite definir regras granulares de acesso. No projeto:</p>
       <ul>
         <li>Cada coordenação (grupo) recebeu <strong>Leitura e Escrita</strong> sobre a sua pasta</li>
@@ -863,10 +868,10 @@
     <div class="q-header">
       <span class="q-number">Q13</span>
       <span class="q-text">Por que é essencial atribuir um endereço IP fixo ao servidor?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>Com IP dinâmico (DHCP), o endereço pode mudar após reinicializações ou renovação de concessão, causando falhas nas ligações mapeadas pelos clientes. O IP fixo garante que os computadores das coordenações encontram o servidor sempre no mesmo endereço, assegurando continuidade do serviço, facilidade de implementação de regras de firewall, monitorização e documentação da infraestrutura.</p>
     </div>
   </div>
@@ -878,10 +883,10 @@
     <div class="q-header">
       <span class="q-number">Q14</span>
       <span class="q-text">Descreva as especificações do hardware usado e justifique cada escolha.</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <ul>
         <li><strong>Intel Core i5 (6.ª Geração)</strong> — processamento multitarefa suficiente para múltiplas sessões simultâneas em LAN</li>
         <li><strong>8 GB RAM DDR4</strong> — supera o mínimo recomendado (2 GB) do Windows Server 2019; garante folga operacional</li>
@@ -896,10 +901,10 @@
     <div class="q-header">
       <span class="q-number">Q15</span>
       <span class="q-text">Quantos grupos e utilizadores foram criados? Como foram organizados?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>Foram criados <strong>7 grupos</strong>, correspondentes às 7 coordenações do IPIKK:</p>
       <ul>
         <li>DP — Desenhador Projectista</li>
@@ -918,10 +923,10 @@
     <div class="q-header">
       <span class="q-number">Q16</span>
       <span class="q-text">Quais foram as etapas da instalação do Windows Server 2019?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <ul>
         <li>Criação de pen drive bootável com a imagem ISO do sistema</li>
         <li>Arranque do servidor via BIOS/UEFI pelo dispositivo USB</li>
@@ -940,10 +945,10 @@
     <div class="q-header">
       <span class="q-number">Q17</span>
       <span class="q-text">O que é autenticação e como é gerida no Windows Server 2019?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>Autenticação é o processo de verificar a identidade do utilizador antes de conceder acesso ao sistema. No Windows Server 2019, é gerida através do <strong>Active Directory (AD)</strong>, que centraliza contas de utilizadores, grupos e permissões. Políticas de senhas complexas e renovação periódica aumentam significativamente a segurança e previnem acessos não autorizados.</p>
     </div>
   </div>
@@ -952,10 +957,10 @@
     <div class="q-header">
       <span class="q-number">Q18</span>
       <span class="q-text">Quais são as múltiplas camadas de segurança recomendadas para um servidor de arquivos?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <ul>
         <li><strong>Segurança física</strong> — proteger o hardware contra acesso físico não autorizado e falhas ambientais</li>
         <li><strong>Segurança lógica</strong> — autenticação, criptografia e políticas de permissões NTFS</li>
@@ -969,10 +974,10 @@
     <div class="q-header">
       <span class="q-number">Q19</span>
       <span class="q-text">O que é o modelo híbrido de acesso implementado no projeto?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>O modelo combina dois níveis: <strong>Acesso Comum</strong> — todos os 7 grupos acedem à pasta <em>SETUP</em> (repositório de recursos partilhados); e <strong>Acesso Restrito</strong> — cada grupo tem acesso exclusivo à sua própria pasta, sem conseguir ver as pastas dos outros grupos. Este modelo equilibra colaboração e confidencialidade.</p>
     </div>
   </div>
@@ -984,10 +989,10 @@
     <div class="q-header">
       <span class="q-number">Q20</span>
       <span class="q-text">Liste os 7 testes realizados e os seus resultados.</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta — Todos Aprovados</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta — Todos Aprovados</span>
       <ul>
         <li>Conectividade (ping ao servidor) — resposta sem perdas</li>
         <li>Acesso às pastas partilhadas via rede — acesso bem-sucedido</li>
@@ -1004,10 +1009,10 @@
     <div class="q-header">
       <span class="q-number">Q21</span>
       <span class="q-text">Que formatos de ficheiros foram transferidos nos testes e o que foi verificado?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>Foram transferidos ficheiros em três formatos: documentos Word (.docx), folhas de cálculo Excel (.xlsx) e ficheiros PDF (.pdf). Todos foram transferidos com sucesso, confirmando a <strong>integridade dos dados</strong> — ou seja, os ficheiros chegaram ao destino sem corrupção ou perda de informação.</p>
     </div>
   </div>
@@ -1019,10 +1024,10 @@
     <div class="q-header">
       <span class="q-number">Q22</span>
       <span class="q-text">Que tipo de pesquisa foi adotada e porquê?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <ul>
         <li><strong>Aplicada</strong> — visa resolver um problema concreto (ausência de servidor no IPIKK)</li>
         <li><strong>Quali-quantitativa</strong> — descreve os processos técnicos (qualitativa) e analisa frequências dos inquéritos (quantitativa)</li>
@@ -1036,10 +1041,10 @@
     <div class="q-header">
       <span class="q-number">Q23</span>
       <span class="q-text">Quantos inquéritos foram aplicados e a quem se destinavam?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <ul>
         <li><strong>Inquérito 1</strong> — Coordenadores de GSI e Informática (2 participantes, 7 perguntas): avaliar riscos e impacto da ausência de servidor</li>
         <li><strong>Inquérito 2</strong> — Professores (6 participantes, 11 perguntas): necessidades pedagógicas, gestão de dados e expectativas</li>
@@ -1055,10 +1060,10 @@
     <div class="q-header">
       <span class="q-number">Q24</span>
       <span class="q-text">Quais são as principais recomendações para melhorar o sistema no futuro?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <ul>
         <li><strong>RAID 1</strong> — adicionar segundo disco para espelhamento e redundância de dados</li>
         <li><strong>Backups automáticos diários</strong> — usar Windows Server Backup para cópias em disco externo ou nuvem</li>
@@ -1075,10 +1080,10 @@
     <div class="q-header">
       <span class="q-number">Q25</span>
       <span class="q-text">O que é o RAID e qual modalidade foi recomendada? Por que é útil?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p><strong>RAID (Redundant Array of Independent Disks)</strong> é uma tecnologia que combina múltiplos discos para melhorar desempenho ou redundância. Foi recomendado o <strong>RAID 1 (espelhamento)</strong>: os dados são escritos simultaneamente em dois discos, de modo que se um falhar, o outro mantém a informação intacta, garantindo continuidade operacional sem perda de dados.</p>
     </div>
   </div>
@@ -1087,10 +1092,10 @@
     <div class="q-header">
       <span class="q-number">Q26</span>
       <span class="q-text">O que é o Active Directory Domain Services (AD DS) e qual vantagem traz sobre a gestão local?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>O <strong>AD DS</strong> transforma o servidor num Controlador de Domínio, permitindo gestão centralizada e avançada de todos os utilizadores e computadores da rede. Vantagens: autenticação de domínio (utilizador pode entrar em qualquer computador da escola com as suas credenciais), políticas de grupo (GPO) para definir configurações automáticas, e gestão muito mais eficiente do que a criação de utilizadores locais usada atualmente.</p>
     </div>
   </div>
@@ -1102,10 +1107,10 @@
     <div class="q-header">
       <span class="q-number">Q27</span>
       <span class="q-text">Qual é a diferença entre permissões de partilha e permissões NTFS? Qual prevalece?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>As <strong>permissões de partilha</strong> controlam o acesso à pasta quando acedida pela rede; as <strong>permissões NTFS</strong> controlam o acesso ao nível do sistema de ficheiros (local e remoto). Quando ambas estão configuradas, o acesso efetivo é determinado pela combinação mais restritiva das duas. No projeto, as permissões foram configuradas de forma coerente para que as NTFS fossem o controlo principal.</p>
     </div>
   </div>
@@ -1114,10 +1119,10 @@
     <div class="q-header">
       <span class="q-number">Q28</span>
       <span class="q-text">O que é um UPS e por que é importante para a continuidade do servidor?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p><strong>UPS (Uninterruptible Power Supply)</strong> é um sistema de alimentação ininterrupta — uma bateria que entra em funcionamento automaticamente quando há corte ou instabilidade de energia elétrica. É crucial para servidores porque uma queda súbita de energia pode corromper dados em escrita, danificar o sistema de ficheiros ou provocar perda irreversível de informação.</p>
     </div>
   </div>
@@ -1126,10 +1131,10 @@
     <div class="q-header">
       <span class="q-number">Q29</span>
       <span class="q-text">Como é feito o mapeamento de unidade de rede nos computadores clientes?</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta</span>
       <p>O mapeamento é feito através do caminho de rede <strong>\\IP_do_servidor</strong> (ex.: \\192.168.X.X). No Windows, acede-se via Explorador de Ficheiros → "Mapear unidade de rede", indicando o caminho da pasta partilhada. Após autenticação com as credenciais do utilizador, a pasta aparece como uma unidade de disco (ex.: Z:) no computador cliente, facilitando o acesso direto sem precisar de digitar o caminho completo.</p>
     </div>
   </div>
@@ -1138,10 +1143,10 @@
     <div class="q-header">
       <span class="q-number">Q30</span>
       <span class="q-text">Resuma o projeto em três frases para a defesa.</span>
-      <span class="q-toggle">▼</span>
+      <span class="q-toggle"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
     </div>
     <div class="q-answer">
-      <span class="answer-label">✔ Resposta — Síntese para Defesa</span>
+      <span class="answer-label"><i class="fa-solid fa-check icon-inline" aria-hidden="true"></i>Resposta — Síntese para Defesa</span>
       <p><em>"Este trabalho implementou um servidor local de arquivos no IPIKK usando Windows Server 2019 em rede LAN, resolvendo o problema de armazenamento descentralizado e inseguro nas coordenações. Foram criados 7 grupos com 35 utilizadores, pastas partilhadas com permissões NTFS e um modelo híbrido de acesso que equilibra colaboração e confidencialidade. Todos os 7 testes de funcionamento foram aprovados, confirmando que a solução é viável, segura e representa um avanço significativo na gestão da informação institucional."</em></p>
     </div>
   </div>
@@ -1152,7 +1157,7 @@
 <!-- ════════════════ DICAS DE DEFESA ════════════════ -->
 <div id="tab-defesa" class="tab-panel">
 
-  <h2 class="section-title"><span class="num">🎤</span> Como Preparar a Defesa</h2>
+  <h2 class="section-title"><span class="num"><i class="fa-solid fa-microphone" aria-hidden="true"></i></span> Como Preparar a Defesa</h2>
 
   <div class="card card-highlight">
     <span class="card-label">Frase de abertura recomendada</span>
